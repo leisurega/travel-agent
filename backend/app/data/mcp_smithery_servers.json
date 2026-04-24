@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "mcp_weather_server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@isdaniel/mcp_weather_server",
+        "--key",
+        "0273bb0a-5568-4671-826b-4bd8c7366b89"
+      ]
+    },
+    "bike-planner-mcp-v2": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@defreeze/bike-planner-mcp-v2",
+        "--key",
+        "0273bb0a-5568-4671-826b-4bd8c7366b89"
+      ]
+    }
+  }
+}
+
+

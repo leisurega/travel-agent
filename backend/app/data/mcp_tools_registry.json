@@ -1,0 +1,260 @@
+[
+  {
+    "name": "weather_current",
+    "description": "Get current weather by city or coordinates",
+    "tags": ["weather", "current", "geo"],
+    "capabilities": ["get_current_weather"],
+    "domains": ["travel", "planning"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "latitude": {"type": "number"},
+        "longitude": {"type": "number"}
+      },
+      "anyOf": [{"required": ["city"]}, {"required": ["latitude", "longitude"]}]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [
+      {"input": {"city": "杭州"}},
+      {"input": {"latitude": 30.2741, "longitude": 120.1551}}
+    ],
+    "safety_level": "low"
+  },
+  {
+    "name": "weather_forecast",
+    "description": "Get daily weather forecast (1-16 days) by city or coordinates",
+    "tags": ["weather", "forecast", "geo"],
+    "capabilities": ["get_forecast"],
+    "domains": ["travel", "planning"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "latitude": {"type": "number"},
+        "longitude": {"type": "number"},
+        "days": {"type": "integer", "minimum": 1, "maximum": 16}
+      },
+      "anyOf": [{"required": ["city"]}, {"required": ["latitude", "longitude"]}]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [
+      {"input": {"city": "杭州", "days": 7}},
+      {"input": {"latitude": 30.2741, "longitude": 120.1551, "days": 3}}
+    ],
+    "safety_level": "low"
+  }
+  ,
+  {
+    "name": "hotel_search",
+    "description": "Search hotels by city, date range, price range, star rating",
+    "tags": ["hotel", "lodging", "accommodation", "search"],
+    "capabilities": ["search_hotels"],
+    "domains": ["travel", "planning"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "check_in": {"type": "string"},
+        "check_out": {"type": "string"},
+        "min_price": {"type": "number"},
+        "max_price": {"type": "number"},
+        "stars": {"type": "integer", "minimum": 1, "maximum": 5}
+      },
+      "required": ["city", "check_in", "check_out"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"city": "杭州", "check_in": "2025-10-01", "check_out": "2025-10-03", "stars": 4}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "hotel_booking",
+    "description": "Create a hotel booking from selected hotel and guest info",
+    "tags": ["hotel", "booking"],
+    "capabilities": ["book_hotel"],
+    "domains": ["travel"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "hotel_id": {"type": "string"},
+        "guest_name": {"type": "string"},
+        "rooms": {"type": "integer", "minimum": 1},
+        "check_in": {"type": "string"},
+        "check_out": {"type": "string"}
+      },
+      "required": ["hotel_id", "guest_name", "check_in", "check_out"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"hotel_id": "HZ123", "guest_name": "Li Lei", "check_in": "2025-10-01", "check_out": "2025-10-03"}}],
+    "safety_level": "medium"
+  },
+  {
+    "name": "flight_search",
+    "description": "Search flights by origin, destination, date, and cabin class",
+    "tags": ["flight", "transport", "air"],
+    "capabilities": ["search_flights"],
+    "domains": ["travel", "transport"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "origin": {"type": "string"},
+        "destination": {"type": "string"},
+        "date": {"type": "string"},
+        "cabin": {"type": "string", "enum": ["economy", "premium", "business", "first"]}
+      },
+      "required": ["origin", "destination", "date"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"origin": "HGH", "destination": "PEK", "date": "2025-10-01", "cabin": "economy"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "train_schedule",
+    "description": "Get trains between two cities with departure time and duration",
+    "tags": ["train", "transport", "schedule"],
+    "capabilities": ["search_trains"],
+    "domains": ["travel", "transport"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "from": {"type": "string"},
+        "to": {"type": "string"},
+        "date": {"type": "string"}
+      },
+      "required": ["from", "to", "date"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"from": "杭州", "to": "上海", "date": "2025-10-02"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "public_transport_route",
+    "description": "Plan public transport route within a city (bus/metro)",
+    "tags": ["transport", "bus", "metro", "route"],
+    "capabilities": ["route_planning"],
+    "domains": ["travel", "city"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "origin": {"type": "string"},
+        "destination": {"type": "string"}
+      },
+      "required": ["city", "origin", "destination"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"city": "杭州", "origin": "西湖", "destination": "杭州东站"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "currency_convert",
+    "description": "Convert currency amounts using latest exchange rates",
+    "tags": ["currency", "finance", "convert"],
+    "capabilities": ["convert_currency"],
+    "domains": ["travel", "finance"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "amount": {"type": "number"},
+        "from": {"type": "string"},
+        "to": {"type": "string"}
+      },
+      "required": ["amount", "from", "to"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"amount": 100, "from": "USD", "to": "CNY"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "unit_convert",
+    "description": "Convert units (length, weight, temperature, volume)",
+    "tags": ["convert", "unit", "utility"],
+    "capabilities": ["convert_unit"],
+    "domains": ["utility"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "value": {"type": "number"},
+        "from_unit": {"type": "string"},
+        "to_unit": {"type": "string"}
+      },
+      "required": ["value", "from_unit", "to_unit"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"value": 25, "from_unit": "C", "to_unit": "F"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "news_fetch",
+    "description": "Fetch latest news headlines by topic and region",
+    "tags": ["news", "content"],
+    "capabilities": ["fetch_news"],
+    "domains": ["general"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "topic": {"type": "string"},
+        "region": {"type": "string"}
+      },
+      "required": ["topic"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"topic": "technology", "region": "cn"}}],
+    "safety_level": "medium"
+  },
+  {
+    "name": "stock_price",
+    "description": "Get real-time or latest closing stock price",
+    "tags": ["stock", "finance"],
+    "capabilities": ["get_stock_price"],
+    "domains": ["finance"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "symbol": {"type": "string"}
+      },
+      "required": ["symbol"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"symbol": "AAPL"}}],
+    "safety_level": "medium"
+  },
+  {
+    "name": "text_translate",
+    "description": "Translate text between languages",
+    "tags": ["translate", "nlp"],
+    "capabilities": ["translate_text"],
+    "domains": ["utility", "nlp"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "text": {"type": "string"},
+        "source": {"type": "string"},
+        "target": {"type": "string"}
+      },
+      "required": ["text", "target"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"text": "你好世界", "target": "en"}}],
+    "safety_level": "low"
+  },
+  {
+    "name": "math_calculator",
+    "description": "Evaluate arithmetic expressions safely",
+    "tags": ["math", "utility", "calculate"],
+    "capabilities": ["calculate"],
+    "domains": ["utility"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "expression": {"type": "string"}
+      },
+      "required": ["expression"]
+    },
+    "output_schema": {"type": "object"},
+    "examples": [{"input": {"expression": "(2+3)*4/5"}}],
+    "safety_level": "low"
+  }
+]
+
+

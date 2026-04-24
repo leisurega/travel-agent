@@ -1,0 +1,63 @@
+services:
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:15
+    container_name: travel_agent_postgres
+    environment:
+      POSTGRES_DB: travel_agent
+      POSTGRES_USER: travel_user
+      POSTGRES_PASSWORD: travel_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: travel_agent_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Qdrant 向量数据库
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: travel_agent_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  # FastAPI 后端服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: travel_agent_backend
+    env_file:
+      - ./backend/.env
+    environment:
+      # 为了方便本地开发，如果 .env 未覆盖，这里提供默认值
+      DATABASE_URL: postgresql://travel_user:travel_password@postgres:5432/travel_agent
+      REDIS_URL: redis://redis:6379
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      SECRET_KEY: dev_secret_key
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+      - qdrant
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  qdrant_data:

@@ -1,0 +1,100 @@
+<!-- pages/trip/detail.wxml -->
+<view class="container">
+  <view class="trip-header">
+    <text class="trip-title">{{trip.name}}</text>
+    <text class="trip-subtitle">{{trip.destination}}</text>
+    <text class="trip-dates">{{trip.start_date}} - {{trip.end_date}}</text>
+  </view>
+
+  <view class="tabs">
+    <view 
+      class="tab {{activeTab === 'plan' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="plan"
+    >
+      行程规划
+    </view>
+    <view 
+      class="tab {{activeTab === 'expense' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="expense"
+    >
+      记账分摊
+    </view>
+    <view 
+      class="tab {{activeTab === 'memory' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="memory"
+    >
+      时光记录
+    </view>
+    <view 
+      class="tab {{activeTab === 'dashboard' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="dashboard"
+    >
+      仪表盘
+    </view>
+  </view>
+
+  <!-- 行程规划 -->
+  <view wx:if="{{activeTab === 'plan'}}" class="tab-content">
+    <view class="plan-header">
+      <text class="section-title">AI智能规划</text>
+      <button class="generate-btn" bindtap="generatePlan">生成行程</button>
+    </view>
+    <view class="plan-content">
+      <!-- 行程内容 -->
+    </view>
+  </view>
+
+  <!-- 记账分摊 -->
+  <view wx:if="{{activeTab === 'expense'}}" class="tab-content">
+    <view class="expense-header">
+      <text class="section-title">记账分摊</text>
+      <button class="add-btn" bindtap="addExpense">添加支出</button>
+    </view>
+    <view class="expense-list">
+      <view wx:for="{{expenses}}" wx:key="id" class="expense-item">
+        <view class="expense-info">
+          <text class="expense-amount">¥{{item.amount}}</text>
+          <text class="expense-desc">{{item.description}}</text>
+          <text class="expense-user">{{item.user_name}}</text>
+        </view>
+        <view class="expense-status">
+          {{item.is_split ? '已分摊' : '未分摊'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 时光记录 -->
+  <view wx:if="{{activeTab === 'memory'}}" class="tab-content">
+    <view class="memory-header">
+      <text class="section-title">时光记录</text>
+      <button class="add-btn" bindtap="addMemory">记录时光</button>
+    </view>
+    <view class="memory-list">
+      <view wx:for="{{memories}}" wx:key="id" class="memory-item">
+        <view class="memory-location">{{item.location}}</view>
+        <view class="memory-content">{{item.content}}</view>
+        <view class="memory-meta">
+          <text class="memory-user">{{item.user_name}}</text>
+          <text class="memory-time">{{item.created_at}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 仪表盘 -->
+  <view wx:if="{{activeTab === 'dashboard'}}" class="tab-content">
+    <view class="dashboard-content">
+      <!-- 仪表盘内容 -->
+    </view>
+  </view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab" bindtap="askAI">
+    <text class="fab-icon">AI</text>
+  </view>
+</view>

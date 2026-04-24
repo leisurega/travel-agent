@@ -1,0 +1,83 @@
+{
+  "overview": {
+    "DAY 1": [
+      "西湖",
+      "楼外楼",
+      "断桥",
+      "河坊街"
+    ],
+    "待规划": []
+  },
+  "days": [
+    {
+      "day": "DAY 1",
+      "theme": "西湖风光+本地美食",
+      "attractions": [
+        {
+          "id": 1,
+          "name": "西湖",
+          "type": "旅游景点",
+          "description": "杭州地标，湖光山色美不胜收，建议清晨前往避开人流。",
+          "image": null,
+          "coordinate": [
+            30.221378,
+            120.121431
+          ],
+          "distanceToNext": "7.6公里",
+          "durationToNext": "22分钟",
+          "transportationToNext": "驾车"
+        },
+        {
+          "id": 3,
+          "name": "楼外楼",
+          "type": "美食",
+          "description": "百年老字号，提供地道杭帮菜，推荐尝试西湖醋鱼和龙井虾仁。",
+          "image": null,
+          "coordinate": [
+            30.250263,
+            120.140935
+          ],
+          "distanceToNext": "1.5公里",
+          "durationToNext": "23分钟",
+          "transportationToNext": "步行"
+        },
+        {
+          "id": 2,
+          "name": "断桥",
+          "type": "旅游景点",
+          "description": "西湖著名景点，冬日断桥残雪尤为出名，步行可达，适合拍照。",
+          "image": null,
+          "coordinate": [
+            30.258878,
+            120.151932
+          ],
+          "distanceToNext": "3.6公里",
+          "durationToNext": "11分钟",
+          "transportationToNext": "驾车"
+        },
+        {
+          "id": 4,
+          "name": "河坊街",
+          "type": "购物",
+          "description": "传统美食与手工艺品街区，适合体验市井文化并购买纪念品。",
+          "image": null,
+          "coordinate": [
+            30.240521,
+            120.168328
+          ],
+          "distanceToNext": null,
+          "durationToNext": null,
+          "transportationToNext": null
+        }
+      ],
+      "routeSummary": {
+        "distance": "13.4公里",
+        "duration": "51分钟"
+      }
+    }
+  ],
+  "mapSettings": {
+    "recommendedPlaces": true
+  },
+  "city": "杭州市"
+}

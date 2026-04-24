@@ -1,0 +1,40 @@
+fastapi>=0.104.1
+uvicorn>=0.24.0
+sqlalchemy>=2.0.23
+psycopg2-binary>=2.9.9
+redis>=5.0.1
+qdrant-client>=1.7.0
+dashscope>=1.14.0
+langchain>=0.0.350
+langchain-community>=0.0.10
+pydantic>=2.7.3
+pydantic-settings>=2.1.0
+python-jose>=3.3.0
+passlib>=1.7.4
+python-multipart>=0.0.6
+websockets>=12.0
+python-dotenv>=1.0.0
+bcrypt>=4.0.1
+PyJWT>=2.8.0
+mem0ai>=0.0.11
+# MCP server for tools
+fastmcp>=0.5.0
+mcp>=1.2.0
+httpx>=0.24.0
+# Qwen mem0记忆功能相关依赖
+openai>=1.0.0
+sentence-transformers>=2.2.2
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+# 向量数据库支持
+chromadb>=0.4.0
+# 文本处理
+nltk>=3.8.1
+spacy>=3.7.0
+# 日志和监控
+structlog>=23.1.0
+# 测试相关
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0

@@ -1,0 +1,37 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">我的旅行</text>
+    <button class="create-btn" bindtap="createTrip">创建旅行</button>
+  </view>
+
+  <view class="trips-list">
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:elif="{{trips.length === 0}}" class="empty">
+      <text>还没有旅行计划，快来创建一个吧！</text>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{trips}}" 
+        wx:key="id" 
+        class="trip-item"
+        bindtap="viewTrip"
+        data-id="{{item.id}}"
+      >
+        <view class="trip-info">
+          <text class="trip-name">{{item.name}}</text>
+          <text class="trip-destination">{{item.destination}}</text>
+          <text class="trip-dates">{{item.start_date}} - {{item.end_date}}</text>
+        </view>
+        <view class="trip-status {{item.status}}">
+          {{item.status === 'planning' ? '规划中' : 
+            item.status === 'ongoing' ? '进行中' : '已完成'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
