@@ -25,8 +25,7 @@ TENCENT_API_KEY = os.getenv("TENCENT_MAP_API_KEY", "your_tencent_map_api_key")  
 TENCENT_ROUTE_URL = {
     "driving": "https://apis.map.qq.com/ws/direction/v1/driving",  # 驾车路径
     "walking": "https://apis.map.qq.com/ws/direction/v1/walking",  # 步行路径
-    "bicycling": "https://apis.map.qq.com/ws/direction/v1/bicycling",  # 骑行路径
-    "transit": "https://apis.map.qq.com/ws/direction/v1/transit"  # 公交路径（如果支持）
+    "bicycling": "https://apis.map.qq.com/ws/direction/v1/bicycling"  # 骑行路径
 }
 
 # 坐标格式说明：统一使用纬度在前格式 [lat, lng]
@@ -258,7 +257,7 @@ class TravelPlanner:
                     print(f"[Route] 跳过：坐标异常 {curr_coord} -> {next_coord}")
                     continue
 
-                # 智能交通方式选择
+                # 1. 先调用步行API判断距离（短途优先步行）
                 walking_route = self._call_tencent_route_api("walking", curr_coord, next_coord)
                 walking_distance = float(walking_route["distance"]) if walking_route else float('inf')
                 
